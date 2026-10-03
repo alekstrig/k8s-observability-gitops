@@ -7,7 +7,7 @@ kubectl -n argocd port-forward svc/argocd-server 8080:443 >/tmp/argocd-forward.l
 kubectl -n monitoring port-forward svc/kube-prometheus-stack-grafana 3000:80 >/tmp/grafana-forward.log 2>&1 &
 kubectl -n monitoring port-forward svc/kube-prometheus-stack-prometheus 9090:9090 >/tmp/prometheus-forward.log 2>&1 &
 kubectl -n monitoring port-forward svc/kube-prometheus-stack-alertmanager 9093:9093 >/tmp/alertmanager-forward.log 2>&1 &
-kubectl -n logging port-forward svc/elasticsearch-kb-http 5601:5601 >/tmp/kibana-forward.log 2>&1 &
+kubectl -n logging port-forward svc/kibana-kb-http 5601:5601 >/tmp/kibana-forward.log 2>&1 &
 
 echo "Grafana:      http://localhost:3000"
 echo "Prometheus:   http://localhost:9090"
