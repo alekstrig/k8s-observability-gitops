@@ -2,10 +2,7 @@
   "name": "K8s Observability GitOps",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers-contrib/features/kubectl-asdf:1": {},
-    "ghcr.io/devcontainers-contrib/features/kind-asdf:1": {},
-    "ghcr.io/devcontainers-contrib/features/helm-asdf:1": {}
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "forwardPorts": [3000, 5601, 8080, 9090, 9093],
   "portsAttributes": {
@@ -15,5 +12,5 @@
     "9090": {"label": "Prometheus"},
     "9093": {"label": "Alertmanager"}
   },
-  "postCreateCommand": "bash scripts/bootstrap.sh"
+  "postCreateCommand": "bash scripts/setup-tools.sh"
 }
