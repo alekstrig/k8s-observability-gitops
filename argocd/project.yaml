@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: observability
+  namespace: argocd
+spec:
+  description: Observability GitOps project
+  sourceRepos:
+    - https://github.com/alekstrig/k8s-observability-gitops.git
+    - https://prometheus-community.github.io/helm-charts
+    - https://helm.elastic.co
+  destinations:
+    - namespace: monitoring
+      server: https://kubernetes.default.svc
+    - namespace: logging
+      server: https://kubernetes.default.svc
+    - namespace: demo
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
