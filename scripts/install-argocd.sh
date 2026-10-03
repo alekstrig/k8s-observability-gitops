@@ -7,6 +7,6 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 kubectl wait --for=condition=Available deployment/argocd-server -n argocd --timeout=300s
 
 kubectl apply -f argocd/project.yaml
-kubectl apply -f argocd/applications/
+kubectl apply -f argocd/applications/root.yaml
 
-echo "Argo CD installed and applications submitted."
+echo "Argo CD installed. The root application will reconcile monitoring, logging and demo."
