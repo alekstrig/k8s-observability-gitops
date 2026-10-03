@@ -1,6 +1,11 @@
 {
   "name": "K8s Observability GitOps",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:4": {
+      "disableIp6tables": true
+    }
+  },
   "forwardPorts": [3000, 5601, 8080, 9090, 9093],
   "portsAttributes": {
     "3000": {"label": "Grafana"},
