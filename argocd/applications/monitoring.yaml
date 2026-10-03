@@ -20,7 +20,7 @@ spec:
           grafana:
             adminPassword: admin
             service:
-              type: ClusterIP
+              type: NodePort
           prometheus:
             prometheusSpec:
               retention: 2d
