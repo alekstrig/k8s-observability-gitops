@@ -1,0 +1,61 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: logging
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-5"
+spec:
+  project: observability
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: logging
+  sources:
+    - repoURL: https://helm.elastic.co
+      chart: elasticsearch
+      targetRevision: 8.5.1
+      helm:
+        values: |
+          replicas: 1
+          minimumMasterNodes: 1
+          antiAffinity: "soft"
+          esJavaOpts: "-Xms512m -Xmx512m"
+          resources:
+            requests:
+              cpu: 250m
+              memory: 1Gi
+            limits:
+              cpu: 1
+              memory: 1.5Gi
+          volumeClaimTemplate:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 2Gi
+          esConfig:
+            elasticsearch.yml: |
+              xpack.security.enabled: false
+              xpack.security.transport.ssl.enabled: false
+    - repoURL: https://helm.elastic.co
+      chart: kibana
+      targetRevision: 8.5.1
+      helm:
+        values: |
+          replicas: 1
+          elasticsearchHosts: "http://elasticsearch-master:9200"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 768Mi
+          kibanaConfig:
+            kibana.yml: |
+              xpack.security.enabled: false
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
