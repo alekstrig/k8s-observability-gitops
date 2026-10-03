@@ -8,13 +8,13 @@ spec:
   source:
     repoURL: https://github.com/alekstrig/k8s-observability-gitops.git
     targetRevision: main
-    path: clusters/dev
+    path: argocd/applications
+    directory:
+      recurse: false
   destination:
     server: https://kubernetes.default.svc
-    namespace: demo
+    namespace: argocd
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
